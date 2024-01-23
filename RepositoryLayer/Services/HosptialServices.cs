@@ -1,5 +1,6 @@
 ﻿using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
+using RepositoryLayer.Interface;
 using RepositoryLayer.Migrations;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Services
 {
-    public class HosptialServices
+    public class HosptialServices :IHospitalServices
     {
         public readonly HospitalManagmentContext hospitalManagmentContext;
         public HosptialServices(HospitalManagmentContext hospitalManagmentContext)
