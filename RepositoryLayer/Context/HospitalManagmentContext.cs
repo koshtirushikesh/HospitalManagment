@@ -13,5 +13,7 @@ namespace RepositoryLayer.Context
         public HospitalManagmentContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
 
         public DbSet<DoctorEntity> Doctors { get; set; }
+        public DbSet<PatientEntity> Patients { get; set; }
+        public DbSet<HospitalEntity> Hospitals { get; set; }
     }
 }

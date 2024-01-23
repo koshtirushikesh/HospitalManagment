@@ -43,6 +43,52 @@ namespace RepositoryLayer.Migrations
 
                     b.ToTable("Doctors");
                 });
+
+            modelBuilder.Entity("RepositoryLayer.Entity.HospitalEntity", b =>
+                {
+                    b.Property<int>("HospitalID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HospitalID"));
+
+                    b.Property<string>("HospitalAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HospitalCity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HospitalName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HospitalID");
+
+                    b.ToTable("Hospitals");
+                });
+
+            modelBuilder.Entity("RepositoryLayer.Entity.PatientEntity", b =>
+                {
+                    b.Property<int>("PatientID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientID"));
+
+                    b.Property<string>("PatientAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PatientID");
+
+                    b.ToTable("Patients");
+                });
 #pragma warning restore 612, 618
         }
     }
