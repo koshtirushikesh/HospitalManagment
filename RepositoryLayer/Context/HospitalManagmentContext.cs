@@ -14,5 +14,6 @@ namespace RepositoryLayer.Context
 
         public DbSet<DoctorEntity> Doctors { get; set; }
         public DbSet<PatientEntity> Patients { get; set; }
+        public DbSet<HospitalEntity> Hospitals { get; set; }
     }
 }
