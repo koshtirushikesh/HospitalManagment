@@ -1,6 +1,10 @@
 
+using BusinessLayer.Interface;
+using BusinessLayer.Services;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Context;
+using RepositoryLayer.Interface;
+using RepositoryLayer.Services;
 
 namespace HospitalManagment
 {
@@ -19,7 +23,8 @@ namespace HospitalManagment
             builder.Services.AddDbContext<HospitalManagmentContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("HospitalDB")));
             var app = builder.Build();
-
+            builder.Services.AddTransient<IHospitalServicesBL,HospitalServicesBL>();
+            builder.Services.AddTransient<IHospitalServices,HosptialServices>();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
