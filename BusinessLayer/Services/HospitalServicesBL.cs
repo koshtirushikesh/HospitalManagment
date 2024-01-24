@@ -26,5 +26,10 @@ namespace BusinessLayer.Services
         {
             return hospitalServices.AddHospital(hospitalEntity);
         }
+
+        public bool RemoveDoctor(int DoctorID)
+        {
+            return hospitalServices.RemoveDoctor(DoctorID);
+        }
     }
 }
