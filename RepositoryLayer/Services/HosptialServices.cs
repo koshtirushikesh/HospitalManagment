@@ -1,16 +1,10 @@
 ﻿using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
-using RepositoryLayer.Migrations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepositoryLayer.Services
 {
-    public class HosptialServices :IHospitalServices
+    public class HosptialServices : IHospitalServices
     {
         public readonly HospitalManagmentContext hospitalManagmentContext;
         public HosptialServices(HospitalManagmentContext hospitalManagmentContext)
@@ -20,7 +14,7 @@ namespace RepositoryLayer.Services
 
         public DoctorEntity AddDoctors(DoctorEntity doctorEntity)
         {
-            DoctorEntity doctor = hospitalManagmentContext.Doctors.Where( x => x.DoctorName == doctorEntity.DoctorName).FirstOrDefault();
+            DoctorEntity doctor = hospitalManagmentContext.Doctors.Where(x => x.DoctorName == doctorEntity.DoctorName).FirstOrDefault();
 
             if (doctor == null)
             {
@@ -36,6 +30,26 @@ namespace RepositoryLayer.Services
                 return doc;
             }
 
+            return null;
+        }
+
+        public HospitalEntity AddHospital(HospitalEntity hospitalEntity)
+        {
+            HospitalEntity hospital = hospitalManagmentContext.Hospitals.Where(x => x.HospitalName == hospitalEntity.HospitalName && x.HospitalCity == hospitalEntity.HospitalCity).FirstOrDefault();
+            if (hospital == null)
+            {
+                HospitalEntity hospitalRL = new HospitalEntity
+                {
+                    HospitalAddress = hospitalEntity.HospitalAddress,
+                    HospitalCity = hospitalEntity.HospitalCity,
+                    HospitalName = hospitalEntity.HospitalName
+                };
+
+                hospitalManagmentContext.Hospitals.Add(hospitalRL);
+                hospitalManagmentContext.SaveChanges();
+
+                return hospitalRL;
+            }
             return null;
         }
     }

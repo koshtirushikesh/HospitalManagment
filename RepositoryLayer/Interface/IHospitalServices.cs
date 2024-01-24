@@ -10,5 +10,6 @@ namespace RepositoryLayer.Interface
     public interface IHospitalServices
     {
         public DoctorEntity AddDoctors(DoctorEntity doctorEntity);
+        public HospitalEntity AddHospital(HospitalEntity hospitalEntity);
     }
 }

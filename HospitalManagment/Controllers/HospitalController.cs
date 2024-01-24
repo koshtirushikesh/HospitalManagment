@@ -12,6 +12,7 @@ namespace HospitalManagment.Controllers
         {
             this.hospitalServicesBL = hospitalServicesBL;
         }
+
         [HttpPost("AddDoctor")]
         public IActionResult AddDoctor(DoctorEntity doctorEntity) 
         {
