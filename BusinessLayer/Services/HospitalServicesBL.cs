@@ -36,5 +36,10 @@ namespace BusinessLayer.Services
         {
             return hospitalServices.LoginHospital(Email,Password);
         }
+
+        public IEnumerable<DoctorEntity> ViewDoctors(int hospitalId)
+        {
+            return hospitalServices.ViewDoctors(hospitalId);
+        }
     }
 }
