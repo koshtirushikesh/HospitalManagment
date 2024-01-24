@@ -85,5 +85,15 @@ namespace RepositoryLayer.Services
 
             return null;
         }
+
+        public IEnumerable<DoctorEntity> ViewDoctors(int hospitalId)
+        {
+            IEnumerable<DoctorEntity> listOfDoctors = hospitalManagmentContext.Doctors.Where(x => x.HospitalId == hospitalId);
+            if(listOfDoctors.Count() > 0)
+            {
+                return listOfDoctors;
+            }
+            return null;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace RepositoryLayer.Interface
         public HospitalEntity AddHospital(HospitalEntity hospitalEntity);
         public bool RemoveDoctor(int DoctorID);
         public string LoginHospital(string Email, string Password);
+        public IEnumerable<DoctorEntity> ViewDoctors(int hospitalId);
     }
 }
