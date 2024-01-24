@@ -71,9 +71,20 @@ namespace HospitalManagment.Controllers
             IEnumerable<DoctorEntity> listOfDoctors = hospitalServicesBL.ViewDoctors(hospitalId);
             if (listOfDoctors  != null)
             {
-                return Ok(new ResponseModel<IEnumerable<DoctorEntity>> { IsSucces = true, message = "Login succesfull", Data = listOfDoctors });
+                return Ok(new ResponseModel<IEnumerable<DoctorEntity>> { IsSucces = true, message = "succesfully get doctors", Data = listOfDoctors });
             }
-            return BadRequest(new ResponseModel<string> { IsSucces = true, message = "Login succesfull" ,Data = null });
+            return BadRequest(new ResponseModel<string> { IsSucces = true, message = "unsuccesfully to get doctors" ,Data = null });
+        }
+
+        [HttpGet("GetHOspital")]
+        public IActionResult ViewHospital(int hospitalId)
+        {
+            HospitalEntity hospitalEntity =hospitalServicesBL.ViewHOspital(hospitalId);
+            if(hospitalEntity != null)
+            {
+                return Ok(new ResponseModel<HospitalEntity> { IsSucces = true, message = "succesfully get hospital data", Data = hospitalEntity });
+            }
+            return BadRequest(new ResponseModel<string> { IsSucces=true , message="can not get hospital data"});
         }
     }
 }
