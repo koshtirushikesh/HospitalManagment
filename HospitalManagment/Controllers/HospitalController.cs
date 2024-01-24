@@ -3,7 +3,9 @@ using CommanLayer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
+using RepositoryLayer.JwtToken;
 using System.Data;
+using System.Security.Claims;
 
 namespace HospitalManagment.Controllers
 {
@@ -60,6 +62,18 @@ namespace HospitalManagment.Controllers
                 return Ok(new ResponseModel<string> { IsSucces = true, message = "Login succesfull", Data = token });
             }
             return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "Login unsuccesfull" });
+        }
+
+        [HttpGet("GetDoctors")]
+        public IActionResult ViewDoctors()
+        {
+            int hospitalId = Convert.ToInt32(User.FindFirstValue("UserID"));
+            IEnumerable<DoctorEntity> listOfDoctors = hospitalServicesBL.ViewDoctors(hospitalId);
+            if (listOfDoctors  != null)
+            {
+                return Ok(new ResponseModel<IEnumerable<DoctorEntity>> { IsSucces = true, message = "Login succesfull", Data = listOfDoctors });
+            }
+            return BadRequest(new ResponseModel<string> { IsSucces = true, message = "Login succesfull" ,Data = null });
         }
     }
 }
