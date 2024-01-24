@@ -41,5 +41,10 @@ namespace BusinessLayer.Services
         {
             return hospitalServices.ViewDoctors(hospitalId);
         }
+
+        public HospitalEntity ViewHOspital(int hospitalId)
+        {
+            return hospitalServices.ViewHOspital(hospitalId);
+        }
     }
 }

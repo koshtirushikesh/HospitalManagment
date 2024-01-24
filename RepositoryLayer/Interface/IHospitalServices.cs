@@ -14,5 +14,6 @@ namespace RepositoryLayer.Interface
         public bool RemoveDoctor(int DoctorID);
         public string LoginHospital(string Email, string Password);
         public IEnumerable<DoctorEntity> ViewDoctors(int hospitalId);
+        public HospitalEntity ViewHOspital(int hospitalId);
     }
 }

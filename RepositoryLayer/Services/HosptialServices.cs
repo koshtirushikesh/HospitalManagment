@@ -95,5 +95,15 @@ namespace RepositoryLayer.Services
             }
             return null;
         }
+
+        public HospitalEntity ViewHOspital(int hospitalId)
+        {
+            HospitalEntity hospitalEntity = hospitalManagmentContext.Hospitals.Where(x => x.HospitalID == hospitalId).FirstOrDefault();
+            if (hospitalEntity != null)
+            {
+                return hospitalEntity;
+            }
+            return null;
+        }
     }
 }
