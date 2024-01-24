@@ -1,7 +1,9 @@
 ﻿using BusinessLayer.Interface;
 using CommanLayer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
+using System.Data;
 
 namespace HospitalManagment.Controllers
 {
@@ -13,6 +15,7 @@ namespace HospitalManagment.Controllers
             this.hospitalServicesBL = hospitalServicesBL;
         }
 
+        [Authorize(Roles = "Hospital")]
         [HttpPost("AddDoctor")]
         public IActionResult AddDoctor(DoctorEntity doctorEntity) 
         {
@@ -24,6 +27,7 @@ namespace HospitalManagment.Controllers
             return BadRequest(new ResponseModel<DoctorEntity> { IsSucces = false, message = "unable to add Doctor", Data = doctor });
         }
 
+        [Authorize(Roles ="Hospital")]
         [HttpPost("AddHospital")]
         public IActionResult AddHospital(HospitalEntity hospitalEntity)
         {
@@ -35,6 +39,7 @@ namespace HospitalManagment.Controllers
             return BadRequest(new ResponseModel<string> { IsSucces = false , message = "unable to add hospital"});
         }
 
+        [Authorize(Roles = "Hospital")]
         [HttpDelete("RemoveDoctor")]
         public IActionResult RemoveDoctor(int DoctorId)
         {
@@ -44,6 +49,17 @@ namespace HospitalManagment.Controllers
                 return Ok(new ResponseModel<bool> { IsSucces = true, message = "doctor deleted succesfully" });
             }
             return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unable to delete the doctor" });
+        }
+
+        [HttpGet("LoginHospital")]
+        public IActionResult LoginHospital(string Email , string Password)
+        {
+            string token = hospitalServicesBL.LoginHospital(Email,Password);
+            if(token != null)
+            {
+                return Ok(new ResponseModel<string> { IsSucces = true, message = "Login succesfull", Data = token });
+            }
+            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "Login unsuccesfull" });
         }
     }
 }

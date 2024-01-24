@@ -48,7 +48,9 @@ namespace RepositoryLayer.Services
                 {
                     HospitalAddress = hospitalEntity.HospitalAddress,
                     HospitalCity = hospitalEntity.HospitalCity,
-                    HospitalName = hospitalEntity.HospitalName
+                    HospitalName = hospitalEntity.HospitalName,
+                    HospitalEmail = hospitalEntity.HospitalEmail,
+                    HospitalPassword = hospitalEntity.HospitalPassword,
                 };
 
                 hospitalManagmentContext.Hospitals.Add(hospitalRL);
@@ -78,7 +80,7 @@ namespace RepositoryLayer.Services
             if (hospitalEntity != null)
             {
                 Token jwtToken = new Token(this.configuration);
-                return jwtToken.GenerateToken(hospitalEntity.HospitalEmail,hospitalEntity.HospitalID,"Hospital");
+                return jwtToken.GenerateToken(hospitalEntity.HospitalEmail,hospitalEntity.HospitalID, "Hospital");
             }
 
             return null;
