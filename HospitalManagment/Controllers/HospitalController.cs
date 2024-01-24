@@ -24,5 +24,15 @@ namespace HospitalManagment.Controllers
             return BadRequest(new ResponseModel<DoctorEntity> { IsSucces = false, message = "unable to add Doctor", Data = doctor });
         }
 
+        [HttpPost("AddHospital")]
+        public IActionResult AddHospital(HospitalEntity hospitalEntity)
+        {
+            HospitalEntity hospital = hospitalServicesBL.AddHospital(hospitalEntity);
+            if(hospital != null)
+            {
+                return Ok(new ResponseModel<HospitalEntity> { IsSucces = true, message = "Hospital added succesfully", Data = hospital });
+            }
+            return BadRequest(new ResponseModel<string> { IsSucces = false , message = "unable to add hospital"});
+        }
     }
 }
