@@ -54,5 +54,17 @@ namespace RepositoryLayer.Services
             }
             return null;
         }
+
+        public bool RemoveDoctor(int DoctorID)
+        {
+            DoctorEntity doctorEntity = hospitalManagmentContext.Doctors.Where( x => x.DoctorID == DoctorID).FirstOrDefault();
+            if (doctorEntity != null)
+            {
+                hospitalManagmentContext.Doctors.Remove(doctorEntity);
+                hospitalManagmentContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }
