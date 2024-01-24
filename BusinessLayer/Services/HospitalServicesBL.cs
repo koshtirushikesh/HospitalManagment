@@ -21,5 +21,10 @@ namespace BusinessLayer.Services
         {
             return hospitalServices.AddDoctors(doctorEntity);
         }
+
+        public HospitalEntity AddHospital(HospitalEntity hospitalEntity)
+        {
+            return hospitalServices.AddHospital(hospitalEntity);
+        }
     }
 }

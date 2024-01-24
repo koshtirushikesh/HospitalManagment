@@ -10,6 +10,8 @@ namespace BusinessLayer.Interface
     public interface IHospitalServicesBL
     {
         public DoctorEntity AddDoctors(DoctorEntity doctorEntity);
+
+        public HospitalEntity AddHospital(HospitalEntity hospitalEntity);
     }
 }
 
