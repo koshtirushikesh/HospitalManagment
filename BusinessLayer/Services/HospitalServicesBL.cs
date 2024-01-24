@@ -31,5 +31,10 @@ namespace BusinessLayer.Services
         {
             return hospitalServices.RemoveDoctor(DoctorID);
         }
+
+        public string LoginHospital(string Email, string Password)
+        {
+            return hospitalServices.LoginHospital(Email,Password);
+        }
     }
 }
