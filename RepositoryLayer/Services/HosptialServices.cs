@@ -1,6 +1,7 @@
 ﻿using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.Migrations;
 
 namespace RepositoryLayer.Services
 {
@@ -22,7 +23,8 @@ namespace RepositoryLayer.Services
                 {
                     DoctorName = doctorEntity.DoctorName,
                     Qualification = doctorEntity.Qualification,
-                    salary = doctorEntity.salary
+                    salary = doctorEntity.salary,
+                    HospitalId = doctorEntity.HospitalId
                 };
                 hospitalManagmentContext.Doctors.Add(doc);
                 hospitalManagmentContext.SaveChanges();

@@ -22,9 +22,10 @@ namespace HospitalManagment
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<HospitalManagmentContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("HospitalDB")));
+            builder.Services.AddTransient<IHospitalServicesBL, HospitalServicesBL>();
+            builder.Services.AddTransient<IHospitalServices, HosptialServices>();
             var app = builder.Build();
-            builder.Services.AddTransient<IHospitalServicesBL,HospitalServicesBL>();
-            builder.Services.AddTransient<IHospitalServices,HosptialServices>();
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
