@@ -34,5 +34,16 @@ namespace HospitalManagment.Controllers
             }
             return BadRequest(new ResponseModel<string> { IsSucces = false , message = "unable to add hospital"});
         }
+
+        [HttpDelete("RemoveDoctor")]
+        public IActionResult RemoveDoctor(int DoctorId)
+        {
+            bool result = hospitalServicesBL.RemoveDoctor(DoctorId);
+            if (result)
+            {
+                return Ok(new ResponseModel<bool> { IsSucces = true, message = "doctor deleted succesfully" });
+            }
+            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unable to delete the doctor" });
+        }
     }
 }

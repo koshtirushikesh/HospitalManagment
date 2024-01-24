@@ -16,5 +16,8 @@ namespace RepositoryLayer.Entity
         public string HospitalName { get; set; }
         public string HospitalAddress { get; set; }
         public string HospitalCity { get; set; }
+        public string HospitalEmail { get; set; }
+        public string HospitalPassword { get; set; }
+        
     }
 }
