@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.JwtToken
 {
-    internal class JwtToken
+    public class Token
     {
         public IConfiguration configration;
-        public JwtToken(IConfiguration configration)
+        public Token(IConfiguration configration)
         {
             this.configration= configration;
         }
@@ -21,7 +21,7 @@ namespace RepositoryLayer.JwtToken
         {
             try
             {
-                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configration["Jwt:Key"]));
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configration["Jwt:key"]));
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
                 var claims = new[]
                 {

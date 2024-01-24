@@ -1,6 +1,8 @@
-﻿using RepositoryLayer.Context;
+﻿using Microsoft.Extensions.Configuration;
+using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.JwtToken;
 using RepositoryLayer.Migrations;
 
 namespace RepositoryLayer.Services
@@ -8,9 +10,11 @@ namespace RepositoryLayer.Services
     public class HosptialServices : IHospitalServices
     {
         public readonly HospitalManagmentContext hospitalManagmentContext;
-        public HosptialServices(HospitalManagmentContext hospitalManagmentContext)
+        public IConfiguration configuration;
+        public HosptialServices(HospitalManagmentContext hospitalManagmentContext, IConfiguration configuration)
         {
             this.hospitalManagmentContext = hospitalManagmentContext;
+            this.configuration = configuration;
         }
 
         public DoctorEntity AddDoctors(DoctorEntity doctorEntity)
@@ -67,6 +71,17 @@ namespace RepositoryLayer.Services
             return false;
         }
 
-        
+        public string LoginHospital(string Email, string Password)
+        {
+            HospitalEntity hospitalEntity = hospitalManagmentContext.Hospitals.Where(x => x.HospitalEmail == Email && x.HospitalPassword == Password).FirstOrDefault();
+
+            if (hospitalEntity != null)
+            {
+                Token jwtToken = new Token(this.configuration);
+                return jwtToken.GenerateToken(hospitalEntity.HospitalEmail,hospitalEntity.HospitalID,"Hospital");
+            }
+
+            return null;
+        }
     }
 }
