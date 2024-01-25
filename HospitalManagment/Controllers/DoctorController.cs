@@ -26,7 +26,7 @@ namespace HospitalManagment.Controllers
             return BadRequest(new ResponseModel<string> { IsSucces = false, message = "Login Unsuccesfull" });
         }
 
-        [Authorize(Roles = "Doctor")]
+        
         [HttpPost("AddPatient")]
         public IActionResult AddPatient(PatientEntity patientEntity)
         {

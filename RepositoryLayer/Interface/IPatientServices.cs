@@ -11,5 +11,6 @@ namespace RepositoryLayer.Interface
     {
         public AppointmentEntity AddAppointment(AppointmentEntity appointmentEntity);
         public string LoginUser(string Email, string Password);
+        public AppointmentEntity ViewAppointment(int userId);
     }
 }

@@ -44,5 +44,15 @@ namespace RepositoryLayer.Services
             }
             return null;
         }
+
+        public AppointmentEntity ViewAppointment(int userId)
+        {
+            AppointmentEntity appointment = hospitalManagmentContext.Appointment.Where(x => x.PatientID == userId).FirstOrDefault();
+            if (appointment != null)
+            {
+                return appointment;
+            }
+            return null;
+        }
     }
 }

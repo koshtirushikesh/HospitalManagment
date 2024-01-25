@@ -3,6 +3,7 @@ using CommanLayer;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Migrations;
+using System.Security.Claims;
 
 namespace HospitalManagment.Controllers
 {
@@ -35,6 +36,18 @@ namespace HospitalManagment.Controllers
                 return Ok(new ResponseModel<string> { IsSucces = true, message = "succesfull login", Data = token });
             }
             return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to login" });
+        }
+
+        [HttpGet("viewAppointment")]
+        public IActionResult ViewAppointment()
+        {
+            int userID = Convert.ToInt32(User.FindFirstValue("UserID"));
+            AppointmentEntity appointment = patientServicesBL.ViewAppointment(userID);
+            if(appointment != null)
+            {
+                return Ok(new ResponseModel<AppointmentEntity> { IsSucces=true,message="succesfully get the appointment",Data=appointment});
+            }
+            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfully to get appointment" });
         }
     }
 }

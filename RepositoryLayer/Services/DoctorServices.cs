@@ -45,7 +45,9 @@ namespace RepositoryLayer.Services
                     PatientName = patientEntity.PatientName,
                     PatientAddress = patientEntity.PatientAddress,
                     DoctorID = patientEntity.DoctorID,
-                    HospitalID = patientEntity.HospitalID
+                    HospitalID = patientEntity.HospitalID,
+                    Email = patientEntity.Email,
+                    Password=patientEntity.Password,
                 };
                 hospitalManagmentContext.Patients.Add(patient1);
                 hospitalManagmentContext.SaveChanges();
