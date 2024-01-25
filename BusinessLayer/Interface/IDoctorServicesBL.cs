@@ -1,13 +1,12 @@
-﻿using RepositoryLayer.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepositoryLayer.Interface
+namespace BusinessLayer.Interface
 {
-    public interface IDoctorServices
+    public interface IDoctorServicesBL
     {
         public string LoginDoctor(string Email, string Password);
     }

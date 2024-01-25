@@ -56,8 +56,11 @@ namespace HospitalManagment
 
             builder.Services.AddDbContext<HospitalManagmentContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("HospitalDB")));
+
             builder.Services.AddTransient<IHospitalServicesBL, HospitalServicesBL>();
             builder.Services.AddTransient<IHospitalServices, HosptialServices>();
+            builder.Services.AddTransient<IDoctorServices, DoctorServices>();
+            builder.Services.AddTransient<IDoctorServicesBL, DoctorServicesBL>();
 
             builder.Services.AddAuthentication(x =>
             {
