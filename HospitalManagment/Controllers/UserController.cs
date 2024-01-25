@@ -26,6 +26,7 @@ namespace HospitalManagment.Controllers
             return BadRequest(new ResponseModel<AppointmentEntity> { IsSucces = false, message = "unsuccesfully get appointment" });
         }
 
+        [HttpGet("loginUser")]
         public IActionResult LoginUser(string Email,string Password)
         {
             string token = patientServicesBL.LoginUser(Email, Password);
