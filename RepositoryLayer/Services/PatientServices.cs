@@ -1,15 +1,19 @@
-﻿using RepositoryLayer.Context;
+﻿using Microsoft.Extensions.Configuration;
+using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.JwtToken;
 
 namespace RepositoryLayer.Services
 {
     public class PatientServices:IPatientServices
     {
         private readonly HospitalManagmentContext hospitalManagmentContext;
-        public PatientServices(HospitalManagmentContext hospitalManagmentContext)
+        public IConfiguration configuration;
+        public PatientServices(HospitalManagmentContext hospitalManagmentContext,IConfiguration configuration)
         {
             this.hospitalManagmentContext = hospitalManagmentContext;
+            this.configuration = configuration;
         }
         public AppointmentEntity AddAppointment(AppointmentEntity appointmentEntity)
         {
@@ -26,6 +30,17 @@ namespace RepositoryLayer.Services
                 hospitalManagmentContext.SaveChanges();
 
                 return entity;
+            }
+            return null;
+        }
+
+        public string LoginUser(string Email, string Password)
+        {
+            PatientEntity patient = hospitalManagmentContext.Patients.Where(x => x.Email == Email && x.Password == Password).FirstOrDefault();
+            if(patient != null)
+            {
+                Token jwtToken = new Token(configuration);
+                return jwtToken.GenerateToken(patient.Email, patient.PatientID, "User");
             }
             return null;
         }

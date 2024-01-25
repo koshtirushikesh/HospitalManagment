@@ -10,5 +10,6 @@ namespace RepositoryLayer.Interface
     public interface IPatientServices
     {
         public AppointmentEntity AddAppointment(AppointmentEntity appointmentEntity);
+        public string LoginUser(string Email, string Password);
     }
 }

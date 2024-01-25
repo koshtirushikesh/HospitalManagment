@@ -22,5 +22,10 @@ namespace BusinessLayer.Services
         {
             return patientServices.AddAppointment(appointmentEntity);
         }
+
+        public string LoginUser(string Email, string Password)
+        {
+            return patientServices.LoginUser(Email, Password);  
+        }
     }
 }

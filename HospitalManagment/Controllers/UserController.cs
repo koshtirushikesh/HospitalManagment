@@ -2,6 +2,7 @@
 using CommanLayer;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
+using RepositoryLayer.Migrations;
 
 namespace HospitalManagment.Controllers
 {
@@ -23,6 +24,16 @@ namespace HospitalManagment.Controllers
                return Ok(new ResponseModel<AppointmentEntity> { IsSucces = true, message = "succesfully get appointment", Data = appointment });
             }
             return BadRequest(new ResponseModel<AppointmentEntity> { IsSucces = false, message = "unsuccesfully get appointment" });
+        }
+
+        public IActionResult LoginUser(string Email,string Password)
+        {
+            string token = patientServicesBL.LoginUser(Email, Password);
+            if(token != null)
+            {
+                return Ok(new ResponseModel<string> { IsSucces = true, message = "succesfull login", Data = token });
+            }
+            return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to login" });
         }
     }
 }

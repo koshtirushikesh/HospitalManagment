@@ -10,5 +10,6 @@ namespace BusinessLayer.Interface
     public interface IPatientServicesBL
     {
         public AppointmentEntity AddAppointment(AppointmentEntity appointmentEntity);
+        public string LoginUser(string Email, string Password);
     }
 }
