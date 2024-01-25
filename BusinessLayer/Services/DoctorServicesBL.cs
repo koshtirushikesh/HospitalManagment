@@ -27,5 +27,15 @@ namespace BusinessLayer.Services
         {
             return doctorServices.LoginDoctor(Email, Password);
         }
+
+        public IEnumerable<AppointmentEntity> ViewAppointment(int DoctorID)
+        {
+            return doctorServices.ViewAppointment(DoctorID);
+        }
+
+        public IEnumerable<PatientEntity> ViewPatient(int DoctorID)
+        {
+            return doctorServices.ViewPatient(DoctorID);
+        }
     }
 }

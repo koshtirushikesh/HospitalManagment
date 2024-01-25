@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
@@ -49,6 +50,27 @@ namespace RepositoryLayer.Services
                 hospitalManagmentContext.Patients.Add(patient1);
                 hospitalManagmentContext.SaveChanges();
                 return patient1;
+            }
+            return null;
+        }
+
+        public IEnumerable<PatientEntity> ViewPatient(int DoctorID)
+        {
+            IEnumerable<PatientEntity> listOfPatient = hospitalManagmentContext.Patients.Where(x => x.DoctorID == DoctorID);
+
+            if(listOfPatient != null)
+            {
+                return listOfPatient;
+            }
+            return null;
+        }
+
+        public IEnumerable<AppointmentEntity> ViewAppointment(int DoctorID)
+        {
+            IEnumerable<AppointmentEntity> listOfAppointment = hospitalManagmentContext.Appointment.Where(x => x.DoctorId == DoctorID);
+            if(listOfAppointment != null)
+            {
+                return listOfAppointment;
             }
             return null;
         }

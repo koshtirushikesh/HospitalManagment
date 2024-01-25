@@ -11,5 +11,7 @@ namespace BusinessLayer.Interface
     {
         public string LoginDoctor(string Email, string Password);
         public PatientEntity AddPatient(PatientEntity patientEntity);
+        public IEnumerable<PatientEntity> ViewPatient(int DoctorID);
+        public IEnumerable<AppointmentEntity> ViewAppointment(int DoctorID);
     }
 }
