@@ -3,7 +3,6 @@ using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using RepositoryLayer.JwtToken;
-using RepositoryLayer.Migrations;
 
 namespace RepositoryLayer.Services
 {
@@ -28,7 +27,9 @@ namespace RepositoryLayer.Services
                     DoctorName = doctorEntity.DoctorName,
                     Qualification = doctorEntity.Qualification,
                     salary = doctorEntity.salary,
-                    HospitalId = doctorEntity.HospitalId
+                    HospitalId = doctorEntity.HospitalId,
+                    Email = doctorEntity.Email,
+                    Password = doctorEntity.Password
                 };
                 hospitalManagmentContext.Doctors.Add(doc);
                 hospitalManagmentContext.SaveChanges();
@@ -63,7 +64,7 @@ namespace RepositoryLayer.Services
 
         public bool RemoveDoctor(int DoctorID)
         {
-            DoctorEntity doctorEntity = hospitalManagmentContext.Doctors.Where( x => x.DoctorID == DoctorID).FirstOrDefault();
+            DoctorEntity doctorEntity = hospitalManagmentContext.Doctors.Where(x => x.DoctorID == DoctorID).FirstOrDefault();
             if (doctorEntity != null)
             {
                 hospitalManagmentContext.Doctors.Remove(doctorEntity);
@@ -80,7 +81,7 @@ namespace RepositoryLayer.Services
             if (hospitalEntity != null)
             {
                 Token jwtToken = new Token(this.configuration);
-                return jwtToken.GenerateToken(hospitalEntity.HospitalEmail,hospitalEntity.HospitalID, "Hospital");
+                return jwtToken.GenerateToken(hospitalEntity.HospitalEmail, hospitalEntity.HospitalID, "Hospital");
             }
 
             return null;
@@ -89,7 +90,7 @@ namespace RepositoryLayer.Services
         public IEnumerable<DoctorEntity> ViewDoctors(int hospitalId)
         {
             IEnumerable<DoctorEntity> listOfDoctors = hospitalManagmentContext.Doctors.Where(x => x.HospitalId == hospitalId);
-            if(listOfDoctors.Count() > 0)
+            if (listOfDoctors.Count() > 0)
             {
                 return listOfDoctors;
             }

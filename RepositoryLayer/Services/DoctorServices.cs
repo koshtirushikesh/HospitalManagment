@@ -33,5 +33,24 @@ namespace RepositoryLayer.Services
             }
             return null;
         }
+
+        public PatientEntity AddPatient(PatientEntity patientEntity)
+        {
+            PatientEntity patient = hospitalManagmentContext.Patients.FirstOrDefault(x=> x.PatientName == patientEntity.PatientName);
+            if(patient == null)
+            {
+                PatientEntity patient1 = new PatientEntity()
+                {
+                    PatientName = patientEntity.PatientName,
+                    PatientAddress = patientEntity.PatientAddress,
+                    DoctorID = patientEntity.DoctorID,
+                    HospitalID = patientEntity.HospitalID
+                };
+                hospitalManagmentContext.Patients.Add(patient1);
+                hospitalManagmentContext.SaveChanges();
+                return patient1;
+            }
+            return null;
+        }
     }
 }

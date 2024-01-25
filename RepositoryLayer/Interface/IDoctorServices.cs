@@ -10,5 +10,6 @@ namespace RepositoryLayer.Interface
     public interface IDoctorServices
     {
         public string LoginDoctor(string Email, string Password);
+        public PatientEntity AddPatient(PatientEntity patientEntity);
     }
 }

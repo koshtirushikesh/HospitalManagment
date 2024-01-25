@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using RepositoryLayer.Services;
 using System;
@@ -16,6 +17,12 @@ namespace BusinessLayer.Services
         {
             this.doctorServices = doctorServices;
         }
+
+        public PatientEntity AddPatient(PatientEntity patientEntity)
+        {
+            return doctorServices.AddPatient(patientEntity);
+        }
+
         public string LoginDoctor(string Email, string Password)
         {
             return doctorServices.LoginDoctor(Email, Password);
