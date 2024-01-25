@@ -9,7 +9,6 @@ namespace RepositoryLayer.Interface
 {
     internal interface IDoctorServices
     {
-        public void AddAppointment(DoctorEntity doctorEntity);
-        
+
     }
 }
