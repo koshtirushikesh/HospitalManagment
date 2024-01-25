@@ -32,5 +32,10 @@ namespace BusinessLayer.Services
         {
             return patientServices.ViewAppointment(userId);
         }
+
+        public PatientEntity AddPatient(PatientEntity patientEntity)
+        {
+            return patientServices.AddPatient(patientEntity);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using BusinessLayer.Services;
 using CommanLayer;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
@@ -25,6 +26,17 @@ namespace HospitalManagment.Controllers
                return Ok(new ResponseModel<AppointmentEntity> { IsSucces = true, message = "succesfully get appointment", Data = appointment });
             }
             return BadRequest(new ResponseModel<AppointmentEntity> { IsSucces = false, message = "unsuccesfully get appointment" });
+        }
+
+        [HttpPost("AddPatient")]
+        public IActionResult AddPatient(PatientEntity patientEntity)
+        {
+            PatientEntity patient = patientServicesBL.AddPatient(patientEntity);
+            if (patient != null)
+            {
+                return Ok(new ResponseModel<PatientEntity> { IsSucces = true, message = "Succesfully added Patient", Data = patient });
+            }
+            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to add patient" });
         }
 
         [HttpGet("loginUser")]
