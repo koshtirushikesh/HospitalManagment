@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.Context;
 
@@ -11,9 +12,11 @@ using RepositoryLayer.Context;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(HospitalManagmentContext))]
-    partial class HospitalManagmentContextModelSnapshot : ModelSnapshot
+    [Migration("20240125091249_PatitentServices")]
+    partial class PatitentServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +37,6 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HospitalId")
                         .HasColumnType("int");
 
                     b.Property<int>("PatientID")
@@ -80,29 +80,6 @@ namespace RepositoryLayer.Migrations
                     b.HasKey("DoctorID");
 
                     b.ToTable("Doctors");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entity.FeedBackEntity", b =>
-                {
-                    b.Property<int>("FeedbakId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbakId"));
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.HasKey("FeedbakId");
-
-                    b.ToTable("FeedBack");
                 });
 
             modelBuilder.Entity("RepositoryLayer.Entity.HospitalEntity", b =>

@@ -27,18 +27,6 @@ namespace HospitalManagment.Controllers
         }
 
         [Authorize(Roles = "Doctor")]
-        [HttpPost("AddPatient")]
-        public IActionResult AddPatient(PatientEntity patientEntity)
-        {
-            PatientEntity patient = doctorServicesBL.AddPatient(patientEntity);
-            if (patient != null)
-            {
-                return Ok(new ResponseModel<PatientEntity> { IsSucces = true, message = "Succesfully added Patient", Data = patient });
-            }
-            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to add patient" });
-        }
-
-        [Authorize(Roles = "Doctor")]
         [HttpGet("getPatients")]
         public IActionResult ViewPatient()
         {

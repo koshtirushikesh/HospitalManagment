@@ -8,19 +8,15 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Entity
 {
-    public class PatientEntity
+    public class FeedBackEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int FeedbakId { get; set; }
+        public int Rating { get; set; }
+        public string Description { get; set; }
+        public int AppointmentId { get; set; }
+        [ForeignKey("Patients")]
         public int PatientID { get; set; }
-        public string PatientName { get; set; }
-        public string PatientAddress { get; set; }
-        [ForeignKey("Hospitals")]
-        public int HospitalID { get; set; }
-        [ForeignKey("Doctors")]
-        public int DoctorID { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-
     }
 }

@@ -18,6 +18,7 @@ namespace RepositoryLayer.Entity
         public int DoctorId { get; set; }
         [ForeignKey("Patients")]
         public int PatientID { get; set; }
-
+        [ForeignKey("Hospitals")]
+        public int HospitalId { get; set; }
     }
 }
