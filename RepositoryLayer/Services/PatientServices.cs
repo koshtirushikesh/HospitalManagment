@@ -17,63 +17,91 @@ namespace RepositoryLayer.Services
         }
         public AppointmentEntity AddAppointment(AppointmentEntity appointmentEntity)
         {
-            AppointmentEntity appointment =  hospitalManagmentContext.Appointment.Where(x => x.PatientID == appointmentEntity.PatientID && x.AppointmentTime == appointmentEntity.AppointmentTime).FirstOrDefault();
-            if (appointment == null)
+            try
             {
-                AppointmentEntity entity = new AppointmentEntity()
+                AppointmentEntity appointment = hospitalManagmentContext.Appointment.Where(x => x.PatientID == appointmentEntity.PatientID && x.AppointmentTime == appointmentEntity.AppointmentTime).FirstOrDefault();
+                if (appointment == null)
                 {
-                    AppointmentTime = appointmentEntity.AppointmentTime,
-                    DoctorId = appointmentEntity.DoctorId,
-                    PatientID = appointmentEntity.PatientID,
-                };
-                hospitalManagmentContext.Appointment.Add(entity);
-                hospitalManagmentContext.SaveChanges();
+                    AppointmentEntity entity = new AppointmentEntity()
+                    {
+                        AppointmentTime = appointmentEntity.AppointmentTime,
+                        DoctorId = appointmentEntity.DoctorId,
+                        PatientID = appointmentEntity.PatientID,
+                    };
+                    hospitalManagmentContext.Appointment.Add(entity);
+                    hospitalManagmentContext.SaveChanges();
 
-                return entity;
+                    return entity;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public PatientEntity AddPatient(PatientEntity patientEntity)
         {
-            PatientEntity patient = hospitalManagmentContext.Patients.FirstOrDefault(x => x.PatientName == patientEntity.PatientName);
-            if (patient == null)
+            try
             {
-                PatientEntity patient1 = new PatientEntity()
+                PatientEntity patient = hospitalManagmentContext.Patients.FirstOrDefault(x => x.PatientName == patientEntity.PatientName);
+                if (patient == null)
                 {
-                    PatientName = patientEntity.PatientName,
-                    PatientAddress = patientEntity.PatientAddress,
-                    DoctorID = patientEntity.DoctorID,
-                    HospitalID = patientEntity.HospitalID,
-                    Email = patientEntity.Email,
-                    Password = patientEntity.Password,
-                };
-                hospitalManagmentContext.Patients.Add(patient1);
-                hospitalManagmentContext.SaveChanges();
-                return patient1;
+                    PatientEntity patient1 = new PatientEntity()
+                    {
+                        PatientName = patientEntity.PatientName,
+                        PatientAddress = patientEntity.PatientAddress,
+                        DoctorID = patientEntity.DoctorID,
+                        HospitalID = patientEntity.HospitalID,
+                        Email = patientEntity.Email,
+                        Password = patientEntity.Password,
+                    };
+                    hospitalManagmentContext.Patients.Add(patient1);
+                    hospitalManagmentContext.SaveChanges();
+                    return patient1;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string LoginUser(string Email, string Password)
         {
-            PatientEntity patient = hospitalManagmentContext.Patients.Where(x => x.Email == Email && x.Password == Password).FirstOrDefault();
-            if(patient != null)
+            try
             {
-                Token jwtToken = new Token(configuration);
-                return jwtToken.GenerateToken(patient.Email, patient.PatientID, "User");
+                PatientEntity patient = hospitalManagmentContext.Patients.Where(x => x.Email == Email && x.Password == Password).FirstOrDefault();
+                if (patient != null)
+                {
+                    Token jwtToken = new Token(configuration);
+                    return jwtToken.GenerateToken(patient.Email, patient.PatientID, "User");
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public AppointmentEntity ViewAppointment(int userId)
         {
-            AppointmentEntity appointment = hospitalManagmentContext.Appointment.Where(x => x.PatientID == userId).FirstOrDefault();
-            if (appointment != null)
+            try
             {
-                return appointment;
+                AppointmentEntity appointment = hospitalManagmentContext.Appointment.Where(x => x.PatientID == userId).FirstOrDefault();
+                if (appointment != null)
+                {
+                    return appointment;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex) 
+            { 
+                throw ex;
+            }
         }
     }
 }

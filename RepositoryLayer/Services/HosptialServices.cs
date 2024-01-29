@@ -18,93 +18,135 @@ namespace RepositoryLayer.Services
 
         public DoctorEntity AddDoctors(DoctorEntity doctorEntity)
         {
-            DoctorEntity doctor = hospitalManagmentContext.Doctors.Where(x => x.DoctorName == doctorEntity.DoctorName).FirstOrDefault();
-
-            if (doctor == null)
+            try
             {
-                DoctorEntity doc = new DoctorEntity
+                DoctorEntity doctor = hospitalManagmentContext.Doctors.Where(x => x.DoctorName == doctorEntity.DoctorName).FirstOrDefault();
+
+                if (doctor == null)
                 {
-                    DoctorName = doctorEntity.DoctorName,
-                    Qualification = doctorEntity.Qualification,
-                    salary = doctorEntity.salary,
-                    HospitalId = doctorEntity.HospitalId,
-                    Email = doctorEntity.Email,
-                    Password = doctorEntity.Password
-                };
-                hospitalManagmentContext.Doctors.Add(doc);
-                hospitalManagmentContext.SaveChanges();
+                    DoctorEntity doc = new DoctorEntity
+                    {
+                        DoctorName = doctorEntity.DoctorName,
+                        Qualification = doctorEntity.Qualification,
+                        salary = doctorEntity.salary,
+                        HospitalId = doctorEntity.HospitalId,
+                        Email = doctorEntity.Email,
+                        Password = doctorEntity.Password
+                    };
+                    hospitalManagmentContext.Doctors.Add(doc);
+                    hospitalManagmentContext.SaveChanges();
 
-                return doc;
+                    return doc;
+                }
+
+                return null;
             }
-
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public HospitalEntity AddHospital(HospitalEntity hospitalEntity)
         {
-            HospitalEntity hospital = hospitalManagmentContext.Hospitals.Where(x => x.HospitalName == hospitalEntity.HospitalName && x.HospitalCity == hospitalEntity.HospitalCity).FirstOrDefault();
-            if (hospital == null)
+            try
             {
-                HospitalEntity hospitalRL = new HospitalEntity
+                HospitalEntity hospital = hospitalManagmentContext.Hospitals.Where(x => x.HospitalName == hospitalEntity.HospitalName && x.HospitalCity == hospitalEntity.HospitalCity).FirstOrDefault();
+                if (hospital == null)
                 {
-                    HospitalAddress = hospitalEntity.HospitalAddress,
-                    HospitalCity = hospitalEntity.HospitalCity,
-                    HospitalName = hospitalEntity.HospitalName,
-                    HospitalEmail = hospitalEntity.HospitalEmail,
-                    HospitalPassword = hospitalEntity.HospitalPassword,
-                };
+                    HospitalEntity hospitalRL = new HospitalEntity
+                    {
+                        HospitalAddress = hospitalEntity.HospitalAddress,
+                        HospitalCity = hospitalEntity.HospitalCity,
+                        HospitalName = hospitalEntity.HospitalName,
+                        HospitalEmail = hospitalEntity.HospitalEmail,
+                        HospitalPassword = hospitalEntity.HospitalPassword,
+                    };
 
-                hospitalManagmentContext.Hospitals.Add(hospitalRL);
-                hospitalManagmentContext.SaveChanges();
+                    hospitalManagmentContext.Hospitals.Add(hospitalRL);
+                    hospitalManagmentContext.SaveChanges();
 
-                return hospitalRL;
+                    return hospitalRL;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool RemoveDoctor(int DoctorID)
         {
-            DoctorEntity doctorEntity = hospitalManagmentContext.Doctors.Where(x => x.DoctorID == DoctorID).FirstOrDefault();
-            if (doctorEntity != null)
+            try
             {
-                hospitalManagmentContext.Doctors.Remove(doctorEntity);
-                hospitalManagmentContext.SaveChanges();
-                return true;
+                DoctorEntity doctorEntity = hospitalManagmentContext.Doctors.Where(x => x.DoctorID == DoctorID).FirstOrDefault();
+                if (doctorEntity != null)
+                {
+                    hospitalManagmentContext.Doctors.Remove(doctorEntity);
+                    hospitalManagmentContext.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string LoginHospital(string Email, string Password)
         {
-            HospitalEntity hospitalEntity = hospitalManagmentContext.Hospitals.Where(x => x.HospitalEmail == Email && x.HospitalPassword == Password).FirstOrDefault();
-
-            if (hospitalEntity != null)
+            try
             {
-                Token jwtToken = new Token(this.configuration);
-                return jwtToken.GenerateToken(hospitalEntity.HospitalEmail, hospitalEntity.HospitalID, "Hospital");
-            }
+                HospitalEntity hospitalEntity = hospitalManagmentContext.Hospitals.Where(x => x.HospitalEmail == Email && x.HospitalPassword == Password).FirstOrDefault();
 
-            return null;
+                if (hospitalEntity != null)
+                {
+                    Token jwtToken = new Token(this.configuration);
+                    return jwtToken.GenerateToken(hospitalEntity.HospitalEmail, hospitalEntity.HospitalID, "Hospital");
+                }
+
+                return null;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<DoctorEntity> ViewDoctors(int hospitalId)
         {
-            IEnumerable<DoctorEntity> listOfDoctors = hospitalManagmentContext.Doctors.Where(x => x.HospitalId == hospitalId);
-            if (listOfDoctors.Count() > 0)
+            try
             {
-                return listOfDoctors;
+                IEnumerable<DoctorEntity> listOfDoctors = hospitalManagmentContext.Doctors.Where(x => x.HospitalId == hospitalId);
+                if (listOfDoctors.Count() > 0)
+                {
+                    return listOfDoctors;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public HospitalEntity ViewHOspital(int hospitalId)
         {
-            HospitalEntity hospitalEntity = hospitalManagmentContext.Hospitals.Where(x => x.HospitalID == hospitalId).FirstOrDefault();
-            if (hospitalEntity != null)
+            try
             {
-                return hospitalEntity;
+                HospitalEntity hospitalEntity = hospitalManagmentContext.Hospitals.Where(x => x.HospitalID == hospitalId).FirstOrDefault();
+                if (hospitalEntity != null)
+                {
+                    return hospitalEntity;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
