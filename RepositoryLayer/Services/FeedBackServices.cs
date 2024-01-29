@@ -34,5 +34,17 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public IEnumerable<FeedBackEntity> GetFeedBackEntities(int PatientId)
+        {
+            IEnumerable<FeedBackEntity> entities = hospitalManagmentContext.FeedBack.Where(x=>x.PatientID == PatientId);
+            if (entities.Any())
+            {
+                return entities;
+            }
+            return null;
+        }
+
+
     }
 }

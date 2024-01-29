@@ -10,5 +10,6 @@ namespace RepositoryLayer.Interface
     public interface IFeedBackServices
     {
         public FeedBackEntity AddFeedBack(FeedBackEntity feedBackEntity);
+        public IEnumerable<FeedBackEntity> GetFeedBackEntities(int PatientId);
     }
 }

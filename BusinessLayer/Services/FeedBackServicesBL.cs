@@ -21,5 +21,10 @@ namespace BusinessLayer.Services
         {
             return feedBackServices.AddFeedBack(feedBackEntity);
         }
+
+        public IEnumerable<FeedBackEntity> GetFeedBackEntities(int PatientId)
+        {
+            return feedBackServices.GetFeedBackEntities(PatientId);
+        }
     }
 }

@@ -2,7 +2,7 @@
 using CommanLayer;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
-using RepositoryLayer.Migrations;
+using System.Security.Claims;
 
 namespace HospitalManagment.Controllers
 {
@@ -20,11 +20,29 @@ namespace HospitalManagment.Controllers
             try
             {
                 FeedBackEntity feedBack = feedBackServicesBL.AddFeedBack(feedBackEntity);
-                if(feedBack != null)
+                if (feedBack != null)
                 {
-                    return Ok(new ResponseModel<FeedBackEntity> { IsSucces = true, message = "succesfully added feedback", Data = feedBack });   
+                    return Ok(new ResponseModel<FeedBackEntity> { IsSucces = true, message = "succesfully added feedback", Data = feedBack });
                 }
-                return BadRequest(new ResponseModel<AppointmentEntity> { IsSucces = true, message = "unsuccesfull to get appointment"});
+                return BadRequest(new ResponseModel<AppointmentEntity> { IsSucces = false, message = "unsuccesfull to add feedback" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpGet("getFeedbacks")]
+        public IActionResult GetFeedBackEntities()
+        {
+            try
+            {
+                int PatientId = Convert.ToInt32(User.FindFirstValue("UserID"));
+                IEnumerable<FeedBackEntity> feedBacks = feedBackServicesBL.GetFeedBackEntities(PatientId);
+                if (feedBacks != null)
+                {
+                    return Ok(new ResponseModel<IEnumerable<FeedBackEntity>> { IsSucces = true, message = "succesfully get feedbacks", Data = feedBacks });
+                }
+                return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfully to get feedback" });
             }
             catch (Exception ex)
             {

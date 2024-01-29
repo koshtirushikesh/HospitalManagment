@@ -10,5 +10,6 @@ namespace BusinessLayer.Interface
     public interface IFeedBackServicesBL
     {
         public FeedBackEntity AddFeedBack(FeedBackEntity feedBackEntity);
+        public IEnumerable<FeedBackEntity> GetFeedBackEntities(int PatientId);
     }
 }
