@@ -26,5 +26,10 @@ namespace BusinessLayer.Services
         {
             return feedBackServices.GetFeedBackEntities(PatientId);
         }
+
+        public FeedBackEntity UpdateFeedback(int rating, string Discrpction, int AppointmentId, int patientId)
+        {
+            return feedBackServices.UpdateFeedback(rating, Discrpction, AppointmentId, patientId);
+        }
     }
 }

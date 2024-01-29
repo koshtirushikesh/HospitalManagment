@@ -49,5 +49,24 @@ namespace HospitalManagment.Controllers
                 throw ex;
             }
         }
+
+        [HttpPut("UpdateFeedback")]
+        public IActionResult UpdateFeedback(int rating, string Discrpction, int AppointmentId)
+        {
+            try
+            {
+                int PatientId = Convert.ToInt32(User.FindFirstValue("UserID"));
+                FeedBackEntity feedBackEntity = feedBackServicesBL.UpdateFeedback(rating, Discrpction, AppointmentId, PatientId);
+                if (feedBackEntity != null)
+                {
+                    return Ok(new ResponseModel<FeedBackEntity> { IsSucces = true, message = "succesfully updated feedback", Data = feedBackEntity });
+                }
+                return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfully to get feedbacks" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

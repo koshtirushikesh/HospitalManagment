@@ -4,7 +4,7 @@ using RepositoryLayer.Interface;
 
 namespace RepositoryLayer.Services
 {
-    public class FeedBackServices:IFeedBackServices
+    public class FeedBackServices : IFeedBackServices
     {
         private readonly HospitalManagmentContext hospitalManagmentContext;
         public FeedBackServices(HospitalManagmentContext hospitalManagmentContext)
@@ -16,12 +16,12 @@ namespace RepositoryLayer.Services
             try
             {
                 FeedBackEntity feedBack = new FeedBackEntity();
-                if(!hospitalManagmentContext.FeedBack.Any(x => x.AppointmentId == feedBackEntity.AppointmentId))
+                if (!hospitalManagmentContext.FeedBack.Any(x => x.AppointmentId == feedBackEntity.AppointmentId))
                 {
                     feedBack.AppointmentId = feedBackEntity.AppointmentId;
                     feedBack.Description = feedBackEntity.Description;
                     feedBack.Rating = feedBackEntity.Rating;
-                    
+
                     hospitalManagmentContext.FeedBack.Add(feedBack);
                     hospitalManagmentContext.SaveChanges();
 
@@ -37,12 +37,40 @@ namespace RepositoryLayer.Services
 
         public IEnumerable<FeedBackEntity> GetFeedBackEntities(int PatientId)
         {
-            IEnumerable<FeedBackEntity> entities = hospitalManagmentContext.FeedBack.Where(x=>x.PatientID == PatientId);
-            if (entities.Any())
+            try
             {
-                return entities;
+                IEnumerable<FeedBackEntity> entities = hospitalManagmentContext.FeedBack.Where(x => x.PatientID == PatientId);
+                if (entities.Any())
+                {
+                    return entities;
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public FeedBackEntity UpdateFeedback(int rating, string Discrpction, int AppointmentId, int patientId)
+        {
+            FeedBackEntity feedBackEntity = hospitalManagmentContext.FeedBack.Where(x => x.AppointmentId == AppointmentId).FirstOrDefault();
+            try
+            {
+                if(feedBackEntity != null)
+                {
+                    feedBackEntity.Rating = rating;
+                    feedBackEntity.Description = Discrpction;
+                    
+                    hospitalManagmentContext.SaveChanges();
+                    return feedBackEntity;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 

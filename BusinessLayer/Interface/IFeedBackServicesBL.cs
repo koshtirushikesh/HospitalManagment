@@ -11,5 +11,6 @@ namespace BusinessLayer.Interface
     {
         public FeedBackEntity AddFeedBack(FeedBackEntity feedBackEntity);
         public IEnumerable<FeedBackEntity> GetFeedBackEntities(int PatientId);
+        public FeedBackEntity UpdateFeedback(int rating, string Discrpction, int AppointmentId, int patientId);
     }
 }
