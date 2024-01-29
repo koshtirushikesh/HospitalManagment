@@ -20,46 +20,74 @@ namespace HospitalManagment.Controllers
         [HttpPost("addAppointment")]
         public IActionResult AddAppointment(AppointmentEntity appointmentEntity)
         {
-            AppointmentEntity appointment = patientServicesBL.AddAppointment(appointmentEntity);
-            if(appointment != null)
+            try
             {
-               return Ok(new ResponseModel<AppointmentEntity> { IsSucces = true, message = "succesfully get appointment", Data = appointment });
+                AppointmentEntity appointment = patientServicesBL.AddAppointment(appointmentEntity);
+                if (appointment != null)
+                {
+                    return Ok(new ResponseModel<AppointmentEntity> { IsSucces = true, message = "succesfully get appointment", Data = appointment });
+                }
+                return BadRequest(new ResponseModel<AppointmentEntity> { IsSucces = false, message = "unsuccesfully get appointment" });
             }
-            return BadRequest(new ResponseModel<AppointmentEntity> { IsSucces = false, message = "unsuccesfully get appointment" });
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpPost("AddPatient")]
         public IActionResult AddPatient(PatientEntity patientEntity)
         {
-            PatientEntity patient = patientServicesBL.AddPatient(patientEntity);
-            if (patient != null)
+            try
             {
-                return Ok(new ResponseModel<PatientEntity> { IsSucces = true, message = "Succesfully added Patient", Data = patient });
+                PatientEntity patient = patientServicesBL.AddPatient(patientEntity);
+                if (patient != null)
+                {
+                    return Ok(new ResponseModel<PatientEntity> { IsSucces = true, message = "Succesfully added Patient", Data = patient });
+                }
+                return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to add patient" });
             }
-            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to add patient" });
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpGet("loginUser")]
         public IActionResult LoginUser(string Email,string Password)
         {
-            string token = patientServicesBL.LoginUser(Email, Password);
-            if(token != null)
+            try
             {
-                return Ok(new ResponseModel<string> { IsSucces = true, message = "succesfull login", Data = token });
+                string token = patientServicesBL.LoginUser(Email, Password);
+                if (token != null)
+                {
+                    return Ok(new ResponseModel<string> { IsSucces = true, message = "succesfull login", Data = token });
+                }
+                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to login" });
             }
-            return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to login" });
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpGet("viewAppointment")]
         public IActionResult ViewAppointment()
         {
-            int userID = Convert.ToInt32(User.FindFirstValue("UserID"));
-            AppointmentEntity appointment = patientServicesBL.ViewAppointment(userID);
-            if(appointment != null)
+            try
             {
-                return Ok(new ResponseModel<AppointmentEntity> { IsSucces=true,message="succesfully get the appointment",Data=appointment});
+                int userID = Convert.ToInt32(User.FindFirstValue("UserID"));
+                AppointmentEntity appointment = patientServicesBL.ViewAppointment(userID);
+                if (appointment != null)
+                {
+                    return Ok(new ResponseModel<AppointmentEntity> { IsSucces = true, message = "succesfully get the appointment", Data = appointment });
+                }
+                return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfully to get appointment" });
             }
-            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfully to get appointment" });
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

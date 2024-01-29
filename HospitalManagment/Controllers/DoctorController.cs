@@ -18,37 +18,58 @@ namespace HospitalManagment.Controllers
         [HttpGet("LoginDoctor")]
         public IActionResult LoginDoctor(string Email, string Password)
         {
-            string token = doctorServicesBL.LoginDoctor(Email, Password);
-            if (token != null)
+            try
             {
-                return Ok(new ResponseModel<string> { IsSucces = true, message = "Login Succesfull", Data = token });
-            };
-            return BadRequest(new ResponseModel<string> { IsSucces = false, message = "Login Unsuccesfull" });
+                string token = doctorServicesBL.LoginDoctor(Email, Password);
+                if (token != null)
+                {
+                    return Ok(new ResponseModel<string> { IsSucces = true, message = "Login Succesfull", Data = token });
+                };
+                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "Login Unsuccesfull" });
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [Authorize(Roles = "Doctor")]
         [HttpGet("getPatients")]
         public IActionResult ViewPatient()
         {
-            int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
-            IEnumerable<PatientEntity> listOfPatient = doctorServicesBL.ViewPatient(DoctorId);
-            if (listOfPatient != null)
+            try
             {
-                return Ok(new ResponseModel<IEnumerable<PatientEntity>> { IsSucces = true, message = "succesfully get all patient" });
+                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
+                IEnumerable<PatientEntity> listOfPatient = doctorServicesBL.ViewPatient(DoctorId);
+                if (listOfPatient != null)
+                {
+                    return Ok(new ResponseModel<IEnumerable<PatientEntity>> { IsSucces = true, message = "succesfully get all patient" });
+                }
+                return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to get all patient" });
             }
-            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to get all patient" });
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpGet("getAppointments")]
         public IActionResult ViewAppointment()
         {
-            int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
-            IEnumerable<AppointmentEntity> listOfPatient = doctorServicesBL.ViewAppointment(DoctorId);
-            if (listOfPatient.Any())
+            try
             {
-                return Ok(new ResponseModel<IEnumerable<AppointmentEntity>> { IsSucces = true, message = "succesfully get all appointment", Data = listOfPatient });
+                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
+                IEnumerable<AppointmentEntity> listOfPatient = doctorServicesBL.ViewAppointment(DoctorId);
+                if (listOfPatient.Any())
+                {
+                    return Ok(new ResponseModel<IEnumerable<AppointmentEntity>> { IsSucces = true, message = "succesfully get all appointment", Data = listOfPatient });
+                }
+                return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to get all appointment" });
             }
-            return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to get all appointment" });
+            catch(Exception ex)
+            {
+                throw ex;   
+            }
         }
 
     }
