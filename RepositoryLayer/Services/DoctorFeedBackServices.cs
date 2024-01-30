@@ -1,11 +1,13 @@
 ﻿using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using RepositoryLayer.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DoctorFeedBack = RepositoryLayer.Entity.DoctorFeedBack;
 
 namespace RepositoryLayer.Services
 {
@@ -33,6 +35,26 @@ namespace RepositoryLayer.Services
                 return doctor;
             }
             return null;
+        }
+
+        public DoctorFeedBack UpdateFeedback(int DoctorId,int PatientID,string Description,int Rating)
+        {
+            try
+            {
+                DoctorFeedBack doctorFeedBackServices = hospitalManagmentContext.DoctorFeedBack.FirstOrDefault(x => x.DoctorID == DoctorId && x.PatientID == PatientID);
+                if (doctorFeedBackServices != null)
+                {
+                    doctorFeedBackServices.Description = Description;
+                    doctorFeedBackServices.Rating = Rating;
+                    hospitalManagmentContext.SaveChanges();
+                    return doctorFeedBackServices;
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

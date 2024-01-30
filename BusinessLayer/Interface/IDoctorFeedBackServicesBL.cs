@@ -10,5 +10,6 @@ namespace BusinessLayer.Interface
     public interface IDoctorFeedBackServicesBL
     {
         public DoctorFeedBack AddFeedback(DoctorFeedBack doctorFeedBack);
+        public DoctorFeedBack UpdateFeedback(int DoctorId, int PatientID, string Description, int Rating);
     }
 }
