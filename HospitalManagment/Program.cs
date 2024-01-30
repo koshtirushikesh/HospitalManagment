@@ -65,6 +65,9 @@ namespace HospitalManagment
             builder.Services.AddTransient<IPatientServicesBL, PatientServicesBL>();
             builder.Services.AddTransient<IFeedBackServices, FeedBackServices>();
             builder.Services.AddTransient<IFeedBackServicesBL, FeedBackServicesBL>();
+            builder.Services.AddTransient<IDoctorFeedBackServices, DoctorFeedBackServices>();
+            builder.Services.AddTransient<IDoctorFeedBackServicesBL, DoctorFeedBackServicesBL>();
+
 
             builder.Services.AddAuthentication(x =>
             {
