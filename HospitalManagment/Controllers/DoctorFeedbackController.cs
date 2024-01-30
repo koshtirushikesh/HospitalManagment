@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
 using RepositoryLayer.JwtToken;
 using RepositoryLayer.Migrations;
+using System.Numerics;
 using System.Security.Claims;
 using DoctorFeedBack = RepositoryLayer.Entity.DoctorFeedBack;
 
@@ -41,6 +42,19 @@ namespace HospitalManagment.Controllers
             }
 
             return BadRequest(new ResponseModel<string> { IsSucces = false, message = "succesfully update the rating or description" });
+        }
+
+        [HttpGet("getDoctorFeedbacks")]
+        public IActionResult GetFeedbacks()
+        {
+            int patientID = Convert.ToInt32(User.FindFirstValue("UserID"));
+            IEnumerable<DoctorFeedBack> listOfDoctorFeecback = doctorFeedBackServicesBL.GetFeedbacks(patientID);
+            if (listOfDoctorFeecback != null)
+            {
+                return Ok(new ResponseModel<IEnumerable<DoctorFeedBack>> { IsSucces = true, message = "succesfully get the feedback", Data = listOfDoctorFeecback });
+            }
+
+            return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to get feedback" });
         }
     }
 }

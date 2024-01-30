@@ -22,6 +22,11 @@ namespace BusinessLayer.Services
             return doctorFeedBackServices.AddFeedback(doctorFeedBack);
         }
 
+        public IEnumerable<DoctorFeedBack> GetFeedbacks(int patientId)
+        {
+            return doctorFeedBackServices.GetFeedbacks(patientId);
+        }
+
         public DoctorFeedBack UpdateFeedback(int DoctorId, int PatientID, string Description, int Rating)
         {
             return doctorFeedBackServices.UpdateFeedback(DoctorId, PatientID, Description, Rating);

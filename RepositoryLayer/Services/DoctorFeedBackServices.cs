@@ -56,5 +56,22 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public IEnumerable<DoctorFeedBack> GetFeedbacks(int patientId)
+        {
+            try
+            {
+                IEnumerable<DoctorFeedBack> listOfDoctorFeedBack = hospitalManagmentContext.DoctorFeedBack.Where(x => x.PatientID == patientId);
+                if (listOfDoctorFeedBack.Any())
+                {
+                    return listOfDoctorFeedBack;
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
