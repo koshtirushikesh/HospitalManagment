@@ -5,6 +5,7 @@ using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using RepositoryLayer.JwtToken;
+using RepositoryLayer.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,16 @@ namespace RepositoryLayer.Services
                 patient.DoctorAction = patientEntity.DoctorAction;
 
                 return patient;
+            }
+            return null;
+        }
+        
+        public IEnumerable<PatientEntity> GetActivePatient(int doctorId)
+        {
+            IEnumerable<PatientEntity> patientEntity = hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == 0);
+            if(patientEntity != null)
+            {
+                return patientEntity;
             }
             return null;
         }

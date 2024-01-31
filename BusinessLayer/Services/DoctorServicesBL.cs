@@ -40,5 +40,10 @@ namespace BusinessLayer.Services
         {
             return doctorServices.ChangeStatusOfPatient(patientId, DoctorId, doctorAction);
         }
+
+        public IEnumerable<PatientEntity> GetActivePatient(int doctorId)
+        {
+            return doctorServices.GetActivePatient(doctorId);
+        }
     }
 }

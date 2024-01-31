@@ -14,5 +14,6 @@ namespace RepositoryLayer.Interface
         public IEnumerable<PatientEntity> ViewPatient(int DoctorID);
         public IEnumerable<AppointmentEntity> ViewAppointment(int DoctorID);
         public PatientModel ChangeStatusOfPatient(int patientId, int DoctorId, int doctorAction);
+        public IEnumerable<PatientEntity> GetActivePatient(int doctorId);
     }
 }
