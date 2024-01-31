@@ -43,7 +43,7 @@ namespace HospitalManagment.Controllers
                 IEnumerable<PatientEntity> listOfPatient = doctorServicesBL.ViewPatient(DoctorId);
                 if (listOfPatient != null)
                 {
-                    return Ok(new ResponseModel<IEnumerable<PatientEntity>> { IsSucces = true, message = "succesfully get all patient" });
+                    return Ok(new ResponseModel<IEnumerable<PatientEntity>> { IsSucces = true, message = "succesfully get all patient" ,Data=listOfPatient });
                 }
                 return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to get all patient" });
             }
