@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Interface;
+using CommanLayer;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using RepositoryLayer.Services;
@@ -18,6 +19,8 @@ namespace BusinessLayer.Services
             this.doctorServices = doctorServices;
         }
 
+        
+
         public string LoginDoctor(string Email, string Password)
         {
             return doctorServices.LoginDoctor(Email, Password);
@@ -31,6 +34,11 @@ namespace BusinessLayer.Services
         public IEnumerable<PatientEntity> ViewPatient(int DoctorID)
         {
             return doctorServices.ViewPatient(DoctorID);
+        }
+
+        public PatientModel ChangeStatusOfPatient(int patientId, int DoctorId, int doctorAction)
+        {
+            return doctorServices.ChangeStatusOfPatient(patientId, DoctorId, doctorAction);
         }
     }
 }

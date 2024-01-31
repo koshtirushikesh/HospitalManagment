@@ -1,4 +1,5 @@
-﻿using RepositoryLayer.Entity;
+﻿using CommanLayer;
+using RepositoryLayer.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace RepositoryLayer.Interface
         public string LoginDoctor(string Email, string Password);
         public IEnumerable<PatientEntity> ViewPatient(int DoctorID);
         public IEnumerable<AppointmentEntity> ViewAppointment(int DoctorID);
+        public PatientModel ChangeStatusOfPatient(int patientId, int DoctorId, int doctorAction);
     }
 }

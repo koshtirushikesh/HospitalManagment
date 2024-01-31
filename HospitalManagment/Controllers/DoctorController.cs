@@ -3,6 +3,7 @@ using CommanLayer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Entity;
+using RepositoryLayer.JwtToken;
 using System.Security.Claims;
 
 namespace HospitalManagment.Controllers
@@ -72,5 +73,24 @@ namespace HospitalManagment.Controllers
             }
         }
 
+        [Authorize(Roles = "Doctor")]
+        [HttpPatch("changeStatusOfPatient")]
+        public IActionResult ChangeStatusOfPatient(int patientId, int doctorAction)
+        {
+            try
+            {
+                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
+                PatientModel patientEntity = doctorServicesBL.ChangeStatusOfPatient(patientId,DoctorId, doctorAction);
+                if (patientEntity != null)
+                {
+                    return Ok(new ResponseModel<PatientModel> { IsSucces = true, message = "change status Succesfull", Data = patientEntity });
+                };
+                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "change status Unsuccesfull" });
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommanLayer\CommanLayer.csproj" />
+  </ItemGroup>
+
 </Project>

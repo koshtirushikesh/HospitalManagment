@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using CommanLayer;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
@@ -75,6 +76,34 @@ namespace RepositoryLayer.Services
             {
                 throw ex;
             }
+        }
+
+        public PatientModel ChangeStatusOfPatient(int patientId, int DoctorId,int doctorAction)
+        {
+            PatientEntity patientEntity = hospitalManagmentContext.Patients.FirstOrDefault(x=> x.PatientID==patientId && x.DoctorID == DoctorId);
+            PatientModel patient = new PatientModel();
+
+            if (patientEntity != null)
+            {
+                if(doctorAction== 1)
+                {
+                    patientEntity.DoctorAction = (int)DoctorAction.opd;
+                } 
+                if(doctorAction== 2)
+                {
+                    patientEntity.DoctorAction = (int)DoctorAction.ipd;
+                }
+                hospitalManagmentContext.SaveChanges();
+                patient.PatientID = patientEntity.PatientID;
+                patient.PatientName = patientEntity.PatientName;
+                patient.PatientAddress = patientEntity.PatientAddress;
+                patient.HospitalID = patient.HospitalID;
+                patient.DoctorID = patientEntity.DoctorID;
+                patient.DoctorAction = patientEntity.DoctorAction;
+
+                return patient;
+            }
+            return null;
         }
     }
 }
