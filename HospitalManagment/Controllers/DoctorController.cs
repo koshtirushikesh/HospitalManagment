@@ -161,10 +161,12 @@ namespace HospitalManagment.Controllers
             try
             {
                 int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
-                IEnumerable<PatientEntity> patientEntities = doctorServicesBL.GetOpdPatient(DoctorId);
-                if (patientEntities != null)
+                PatientEntityWithCount p = new PatientEntityWithCount();
+                p.patientEntities = doctorServicesBL.GetOpdPatient(DoctorId);
+                p.count = p.patientEntities.Count();
+                if (p != null)
                 {
-                    return Ok(new ResponseModel<IEnumerable<PatientEntity>> { IsSucces = true, message = "Succesfull get opd patient", Data = patientEntities });
+                    return Ok(new ResponseModel<PatientEntityWithCount> { IsSucces = true, message = "Succesfull get opd patient", Data = p });
                 };
                 return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to get opd patient" });
             }
@@ -181,10 +183,12 @@ namespace HospitalManagment.Controllers
             try
             {
                 int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
-                IEnumerable<PatientEntity> patientEntities = doctorServicesBL.GetIpdPatient(DoctorId);
-                if (patientEntities != null)
+                PatientEntityWithCount p = new PatientEntityWithCount(); 
+                p.patientEntities= doctorServicesBL.GetIpdPatient(DoctorId);
+                p.count = p.patientEntities.Count();
+                if (p != null)
                 {
-                    return Ok(new ResponseModel<IEnumerable<PatientEntity>> { IsSucces = true, message = "Succesfull get Ipd patient", Data = patientEntities });
+                    return Ok(new ResponseModel<PatientEntityWithCount> { IsSucces = true, message = "Succesfull get Ipd patient", Data = p });
                 };
                 return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to get Ipd patient" });
             }
