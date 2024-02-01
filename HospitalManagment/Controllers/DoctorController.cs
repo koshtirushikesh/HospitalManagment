@@ -35,6 +35,45 @@ namespace HospitalManagment.Controllers
         }
 
         [Authorize(Roles = "Doctor")]
+        [HttpPatch("changeStatusOfPatient")]
+        public IActionResult ChangeStatusOfPatient(int patientId, int doctorAction)
+        {
+            try
+            {
+                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
+                PatientModel patientEntity = doctorServicesBL.ChangeStatusOfPatient(patientId, DoctorId, doctorAction);
+                if (patientEntity != null)
+                {
+                    return Ok(new ResponseModel<PatientModel> { IsSucces = true, message = "change status Succesfull", Data = patientEntity });
+                };
+                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "change status Unsuccesfull" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPatch("changeSatatusOfAppointment")]
+        public IActionResult ChangeStatusOfAppointment(bool isExamined, int appointmentId)
+        {
+            try
+            {
+                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
+                AppointmentEntity appointmentEntity = doctorServicesBL.ChangeStatusOfAppointment(DoctorId, isExamined, appointmentId);
+                if (appointmentEntity != null)
+                {
+                    return Ok(new ResponseModel<AppointmentEntity> { IsSucces = true, message = "change status Succesfull", Data = appointmentEntity });
+                };
+                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "change status Unsuccesfull" });
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [Authorize(Roles = "Doctor")]
         [HttpGet("getPatients")]
         public IActionResult ViewPatient()
         {
@@ -66,26 +105,6 @@ namespace HospitalManagment.Controllers
                     return Ok(new ResponseModel<IEnumerable<AppointmentEntity>> { IsSucces = true, message = "succesfully get all appointment", Data = listOfPatient });
                 }
                 return BadRequest(new ResponseModel<bool> { IsSucces = false, message = "unsuccesfull to get all appointment" });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        [Authorize(Roles = "Doctor")]
-        [HttpPatch("changeStatusOfPatient")]
-        public IActionResult ChangeStatusOfPatient(int patientId, int doctorAction)
-        {
-            try
-            {
-                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
-                PatientModel patientEntity = doctorServicesBL.ChangeStatusOfPatient(patientId, DoctorId, doctorAction);
-                if (patientEntity != null)
-                {
-                    return Ok(new ResponseModel<PatientModel> { IsSucces = true, message = "change status Succesfull", Data = patientEntity });
-                };
-                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "change status Unsuccesfull" });
             }
             catch (Exception ex)
             {

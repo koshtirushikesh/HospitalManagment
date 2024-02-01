@@ -116,5 +116,17 @@ namespace RepositoryLayer.Services
             }
             return null;
         }
+
+        public AppointmentEntity ChangeStatusOfAppointment(int doctorId,bool isExamined,int appointmentId)
+        {
+            AppointmentEntity appointment = hospitalManagmentContext.Appointment.FirstOrDefault(x => x.AppointmentId == appointmentId && x.DoctorId == doctorId);
+            if(appointment != null)
+            {
+                appointment.isExamin = isExamined;
+                hospitalManagmentContext.SaveChanges();
+                return appointment;
+            }
+            return null;
+        }
     }
 }

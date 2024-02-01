@@ -20,5 +20,6 @@ namespace RepositoryLayer.Entity
         public int PatientID { get; set; }
         [ForeignKey("Hospitals")]
         public int HospitalId { get; set; }
+        public bool isExamin { get; set; }
     }
 }
