@@ -54,6 +54,7 @@ namespace HospitalManagment.Controllers
             }
         }
 
+        [Authorize(Roles = "Doctor")]
         [HttpPatch("changeSatatusOfAppointment")]
         public IActionResult ChangeStatusOfAppointment(bool isExamined, int appointmentId)
         {
@@ -93,6 +94,7 @@ namespace HospitalManagment.Controllers
             }
         }
 
+        [Authorize(Roles = "Doctor")]
         [HttpGet("getAppointments")]
         public IActionResult ViewAppointment()
         {
@@ -112,6 +114,7 @@ namespace HospitalManagment.Controllers
             }
         }
 
+        [Authorize(Roles = "Doctor")]
         [HttpGet("getActivePatient")]
         public IActionResult GetActivePatient()
         {
@@ -131,6 +134,7 @@ namespace HospitalManagment.Controllers
             }
         }
 
+        [Authorize(Roles ="Doctor")]
         [HttpGet("getActiveAppointments")]
         public IActionResult getActiveAppointment()
         {
