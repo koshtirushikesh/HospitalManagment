@@ -55,5 +55,10 @@ namespace BusinessLayer.Services
         {
             return doctorServices.getActiveAppointment(doctorId);
         }
+
+        public IEnumerable<PatientEntity> GetOpdPatient(int doctorId)
+        {
+            return doctorServices.GetOpdPatient(doctorId);
+        }
     }
 }

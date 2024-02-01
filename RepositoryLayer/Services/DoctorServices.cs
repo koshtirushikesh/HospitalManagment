@@ -79,6 +79,26 @@ namespace RepositoryLayer.Services
             }
         }
 
+        public IEnumerable<PatientEntity> GetActivePatient(int doctorId)
+        {
+            IEnumerable<PatientEntity> patientEntity = hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == 0);
+            if (patientEntity != null)
+            {
+                return patientEntity;
+            }
+            return null;
+        }
+
+        public IEnumerable<AppointmentEntity> getActiveAppointment(int doctorId)
+        {
+            return hospitalManagmentContext.Appointment.Where(x => x.DoctorId == doctorId && x.isExamin == false);
+        }
+
+        public IEnumerable<PatientEntity> GetOpdPatient(int doctorId)
+        {
+            return hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == (int)DoctorAction.opd);
+        }
+
         public PatientModel ChangeStatusOfPatient(int patientId, int DoctorId,int doctorAction)
         {
             PatientEntity patientEntity = hospitalManagmentContext.Patients.FirstOrDefault(x=> x.PatientID==patientId && x.DoctorID == DoctorId);
@@ -107,21 +127,6 @@ namespace RepositoryLayer.Services
             return null;
         }
         
-        public IEnumerable<PatientEntity> GetActivePatient(int doctorId)
-        {
-            IEnumerable<PatientEntity> patientEntity = hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == 0);
-            if(patientEntity != null)
-            {
-                return patientEntity;
-            }
-            return null;
-        }
-
-        public IEnumerable<AppointmentEntity> getActiveAppointment(int doctorId)
-        {
-            return hospitalManagmentContext.Appointment.Where(x => x.DoctorId == doctorId && x.isExamin == false);
-        }
-
         public AppointmentEntity ChangeStatusOfAppointment(int doctorId,bool isExamined,int appointmentId)
         {
             AppointmentEntity appointment = hospitalManagmentContext.Appointment.FirstOrDefault(x => x.AppointmentId == appointmentId && x.DoctorId == doctorId);
