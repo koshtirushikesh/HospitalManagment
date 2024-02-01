@@ -50,5 +50,10 @@ namespace BusinessLayer.Services
         {
             return doctorServices.ChangeStatusOfAppointment(doctorId, isExamined, appointmentId);
         }
+
+        public IEnumerable<AppointmentEntity> getActiveAppointment(int doctorId)
+        {
+            return doctorServices.getActiveAppointment(doctorId);
+        }
     }
 }

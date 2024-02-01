@@ -130,5 +130,24 @@ namespace HospitalManagment.Controllers
                 throw ex;
             }
         }
+
+        [HttpGet("getActiveAppointments")]
+        public IActionResult getActiveAppointment()
+        {
+            try
+            {
+                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
+                IEnumerable<AppointmentEntity> patientEntities = doctorServicesBL.getActiveAppointment(DoctorId);
+                if (patientEntities != null)
+                {
+                    return Ok(new ResponseModel<IEnumerable<AppointmentEntity>> { IsSucces = true, message = "Succesfull get all active appointment", Data = patientEntities });
+                };
+                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to get all active appointment" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     } 
 }

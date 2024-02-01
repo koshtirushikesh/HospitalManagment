@@ -117,6 +117,11 @@ namespace RepositoryLayer.Services
             return null;
         }
 
+        public IEnumerable<AppointmentEntity> getActiveAppointment(int doctorId)
+        {
+            return hospitalManagmentContext.Appointment.Where(x => x.DoctorId == doctorId && x.isExamin == false);
+        }
+
         public AppointmentEntity ChangeStatusOfAppointment(int doctorId,bool isExamined,int appointmentId)
         {
             AppointmentEntity appointment = hospitalManagmentContext.Appointment.FirstOrDefault(x => x.AppointmentId == appointmentId && x.DoctorId == doctorId);
