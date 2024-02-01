@@ -173,5 +173,25 @@ namespace HospitalManagment.Controllers
                 throw ex;
             }
         }
+
+        [Authorize(Roles = "Doctor")]
+        [HttpGet("getIpdPatient")]
+        public IActionResult GetIpdPatient()
+        {
+            try
+            {
+                int DoctorId = Convert.ToInt32(User.FindFirstValue("UserId"));
+                IEnumerable<PatientEntity> patientEntities = doctorServicesBL.GetIpdPatient(DoctorId);
+                if (patientEntities != null)
+                {
+                    return Ok(new ResponseModel<IEnumerable<PatientEntity>> { IsSucces = true, message = "Succesfull get Ipd patient", Data = patientEntities });
+                };
+                return BadRequest(new ResponseModel<string> { IsSucces = false, message = "unsuccesfull to get Ipd patient" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     } 
 }

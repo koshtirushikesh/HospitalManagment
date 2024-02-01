@@ -99,6 +99,11 @@ namespace RepositoryLayer.Services
             return hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == (int)DoctorAction.opd);
         }
 
+        public IEnumerable<PatientEntity> GetIpdPatient(int doctorId)
+        {
+            return hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == (int)DoctorAction.ipd);
+        }
+
         public PatientModel ChangeStatusOfPatient(int patientId, int DoctorId,int doctorAction)
         {
             PatientEntity patientEntity = hospitalManagmentContext.Patients.FirstOrDefault(x=> x.PatientID==patientId && x.DoctorID == DoctorId);

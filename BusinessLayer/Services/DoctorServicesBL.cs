@@ -19,8 +19,6 @@ namespace BusinessLayer.Services
             this.doctorServices = doctorServices;
         }
 
-        
-
         public string LoginDoctor(string Email, string Password)
         {
             return doctorServices.LoginDoctor(Email, Password);
@@ -59,6 +57,11 @@ namespace BusinessLayer.Services
         public IEnumerable<PatientEntity> GetOpdPatient(int doctorId)
         {
             return doctorServices.GetOpdPatient(doctorId);
+        }
+
+        public IEnumerable<PatientEntity> GetIpdPatient(int doctorId)
+        {
+            return doctorServices.GetIpdPatient(doctorId);
         }
     }
 }

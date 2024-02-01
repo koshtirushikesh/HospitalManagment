@@ -18,5 +18,6 @@ namespace RepositoryLayer.Interface
         public AppointmentEntity ChangeStatusOfAppointment(int doctorId, bool isExamined, int appointmentId);
         public IEnumerable<AppointmentEntity> getActiveAppointment(int doctorId);
         public IEnumerable<PatientEntity> GetOpdPatient(int doctorId);
+        public IEnumerable<PatientEntity> GetIpdPatient(int doctorId);
     }
 }
