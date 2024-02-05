@@ -81,67 +81,111 @@ namespace RepositoryLayer.Services
 
         public IEnumerable<PatientEntity> GetActivePatient(int doctorId)
         {
-            IEnumerable<PatientEntity> patientEntity = hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == 0);
-            if (patientEntity != null)
+            try
             {
-                return patientEntity;
+                IEnumerable<PatientEntity> patientEntity = hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == 0);
+                if (patientEntity != null)
+                {
+                    return patientEntity;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IEnumerable<AppointmentEntity> getActiveAppointment(int doctorId)
         {
-            return hospitalManagmentContext.Appointment.Where(x => x.DoctorId == doctorId && x.isExamin == false);
+            try
+            {
+                return hospitalManagmentContext.Appointment.Where(x => x.DoctorId == doctorId && x.isExamin == false);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public IEnumerable<PatientEntity> GetOpdPatient(int doctorId)
         {
-            return hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == (int)DoctorAction.opd);
+            try
+            {
+                return hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == (int)DoctorAction.opd);
+            }
+            catch( Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public IEnumerable<PatientEntity> GetIpdPatient(int doctorId)
         {
-            return hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == (int)DoctorAction.ipd);
+            try
+            {
+                return hospitalManagmentContext.Patients.Where(x => x.DoctorID == doctorId && x.DoctorAction == (int)DoctorAction.ipd);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public PatientModel ChangeStatusOfPatient(int patientId, int DoctorId,int doctorAction)
         {
-            PatientEntity patientEntity = hospitalManagmentContext.Patients.FirstOrDefault(x=> x.PatientID==patientId && x.DoctorID == DoctorId);
-            PatientModel patient = new PatientModel();
-
-            if (patientEntity != null)
+            try
             {
-                if(doctorAction== 1)
-                {
-                    patientEntity.DoctorAction = (int)DoctorAction.opd;
-                } 
-                if(doctorAction== 2)
-                {
-                    patientEntity.DoctorAction = (int)DoctorAction.ipd;
-                }
-                hospitalManagmentContext.SaveChanges();
-                patient.PatientID = patientEntity.PatientID;
-                patient.PatientName = patientEntity.PatientName;
-                patient.PatientAddress = patientEntity.PatientAddress;
-                patient.HospitalID = patient.HospitalID;
-                patient.DoctorID = patientEntity.DoctorID;
-                patient.DoctorAction = patientEntity.DoctorAction;
+                PatientEntity patientEntity = hospitalManagmentContext.Patients.FirstOrDefault(x => x.PatientID == patientId && x.DoctorID == DoctorId);
+                PatientModel patient = new PatientModel();
 
-                return patient;
+                if (patientEntity != null)
+                {
+                    if (doctorAction == 1)
+                    {
+                        patientEntity.DoctorAction = (int)DoctorAction.opd;
+                    }
+                    if (doctorAction == 2)
+                    {
+                        patientEntity.DoctorAction = (int)DoctorAction.ipd;
+                    }
+                    hospitalManagmentContext.SaveChanges();
+                    patient.PatientID = patientEntity.PatientID;
+                    patient.PatientName = patientEntity.PatientName;
+                    patient.PatientAddress = patientEntity.PatientAddress;
+                    patient.HospitalID = patient.HospitalID;
+                    patient.DoctorID = patientEntity.DoctorID;
+                    patient.DoctorAction = patientEntity.DoctorAction;
+
+                    return patient;
+                }
+                return null;
             }
-            return null;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         
         public AppointmentEntity ChangeStatusOfAppointment(int doctorId,bool isExamined,int appointmentId)
         {
-            AppointmentEntity appointment = hospitalManagmentContext.Appointment.FirstOrDefault(x => x.AppointmentId == appointmentId && x.DoctorId == doctorId);
-            if(appointment != null)
+            try
             {
-                appointment.isExamin = isExamined;
-                hospitalManagmentContext.SaveChanges();
-                return appointment;
+                AppointmentEntity appointment = hospitalManagmentContext.Appointment.FirstOrDefault(x => x.AppointmentId == appointmentId && x.DoctorId == doctorId);
+                if (appointment != null)
+                {
+                    appointment.isExamin = isExamined;
+                    hospitalManagmentContext.SaveChanges();
+                    return appointment;
+                }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
